@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Carros{% endblock %}
+
+{% block content %}
+  <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5em;">
+    <h1>Carros Cadastrados</h1>
+    <div>
+      {% if current_user.is_authenticated %}
+        Olá, <strong>{{ current_user.username }}</strong>
+        <a href="{{ url_for('auth.logout') }}" style="margin-left: 1em;">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <span style="margin: 0 0.5em;">|</span>
+        <a href="{{ url_for('auth.signup') }}">Signup</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <p><a href="{{ url_for('cars.create_car') }}">+ Novo Carro</a></p>
+  <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5em;">
+    {% for c in carros %}
+      <li style="border: 1px solid #ddd; padding: 1em; border-radius: 8px;">
+        <a href="{{ url_for('cars.car_detail', car_id=c.id) }}" style="text-decoration: none; color: inherit;">
+          <h2 style="margin: 0 0 0.5em; font-size: 1.25em;">{{ c.name }}</h2>
+          <img src="{{ c.photo }}" alt="Foto do {{ c.name }}" style="width: 100%; height: auto; border-radius: 4px; margin-top: 0.5em;">
+        </a>
+      </li>
+    {% else %}
+      <li>Não há carros cadastrados.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

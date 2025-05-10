@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Detalhes do Carro #{{ carro.id }}{% endblock %}
+
+{% block content %}
+  <h1>{{ carro.name }}</h1>
+  <p><img src="{{ carro.photo }}" alt="Foto do carro" style="max-width:100%;"></p>
+  <p><strong>Descrição:</strong> {{ carro.description }}</p>
+  <p><strong>Produção:</strong> {{ carro.start_year }} – {{ carro.end_year }}</p>
+  <p><strong>Potência:</strong> {{ carro.horsepower }} cv</p>
+  <p><strong>Torque:</strong> {{ carro.torque }} Nm</p>
+  <p><strong>Velocidade Máxima:</strong> {{ carro.top_speed }} km/h</p>
+  <p><strong>Tração:</strong> {{ carro.drive_type }}</p>
+  <p><strong>Câmbio:</strong> {{ carro.transmission }}</p>
+  <p>
+    <a href="{{ url_for('cars.list_cars') }}">← Voltar à lista</a>
+    {% if current_user.is_authenticated and carro.user_id == current_user.id %}
+      | <a href="{{ url_for('cars.edit_car', car_id=carro.id) }}">Editar</a>
+      | <a href="{{ url_for('cars.delete_car', car_id=carro.id) }}">Excluir</a>
+    {% endif %}
+  </p>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Registrar Conta{% endblock %}
+
+{% block content %}
+  <h1>Registrar</h1>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.username.label }}<br>
+      {{ form.username(size=32) }}
+      {% for err in form.username.errors %}<br><small style="color:red;">{{ err }}</small>{% endfor %}
+    </p>
+    <p>
+      {{ form.password.label }}<br>
+      {{ form.password() }}
+      {% for err in form.password.errors %}<br><small style="color:red;">{{ err }}</small>{% endfor %}
+    </p>
+    <p>
+      {{ form.confirm.label }}<br>
+      {{ form.confirm() }}
+      {% for err in form.confirm.errors %}<br><small style="color:red;">{{ err }}</small>{% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+  <p>Já tem conta? <a href="{{ url_for('auth.login') }}">Entrar</a></p>
+{% endblock %}

@@ -13,7 +13,7 @@ RUN apt-get update && \
 WORKDIR /usr/src/app
 
 # Copia arquivos essenciais
-COPY requirements.txt .env main.py config.py ./
+COPY requirements.txt main.py config.py ./
 COPY app/ app/
 
 # Instala dependências Python

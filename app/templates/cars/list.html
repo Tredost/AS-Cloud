@@ -3,19 +3,6 @@
 {% block title %}Lista de Carros{% endblock %}
 
 {% block content %}
-  <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5em;">
-    <h1>Carros Castrados</h1>
-    <div>
-      {% if current_user.is_authenticated %}
-        Olá, <strong>{{ current_user.username }}</strong>
-        <a href="{{ url_for('auth.logout') }}" style="margin-left: 1em;">Logout</a>
-      {% else %}
-        <a href="{{ url_for('auth.login') }}">Login</a>
-        <span style="margin: 0 0.5em;">|</span>
-        <a href="{{ url_for('auth.signup') }}">Signup</a>
-      {% endif %}
-    </div>
-  </header>
 
   <p><a href="{{ url_for('cars.create_car') }}">+ Novo Carro</a></p>
   <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5em;">

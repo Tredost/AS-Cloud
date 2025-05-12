@@ -33,7 +33,7 @@ def login():
             login_user(user)
             next_page = request.args.get('next') or url_for('index')
             return redirect(next_page)
-        flash('Email ou senha inválidos.', 'danger')
+        flash('Usuário ou senha inválidos.', 'danger')
     return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/logout')

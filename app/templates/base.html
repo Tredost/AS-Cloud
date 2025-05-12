@@ -1,25 +1,48 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Galeria{% endblock %}</title>
-    <style>
-      body { font-family: sans-serif; max-width: 600px; margin: 2em auto; }
-      form p { margin-bottom: 1em; }
-      input, button { padding: 0.5em; width: 100%; max-width: 100%; }
-    </style>
-  </head>
-  <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-        {% for category, msg in messages %}
-          <li><strong>[{{ category }}]</strong> {{ msg }}</li>
-        {% endfor %}
-        </ul>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Galeria{% endblock %}</title>
+  {% block head %}{% endblock %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">Minha Galeria</h1>
+      <nav>
+        {% if current_user.is_authenticated %}
+        <span style="margin: 0 1em;">
+      <i class="fas fa-user"></i> <strong>{{ current_user.username }}</strong>
+    </span>
+        <a href="{{ url_for('index') }}"  title="Início"><i class="fas fa-home"></i></a>
+        <a href="{{ url_for('auth.logout') }}" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+      {% else %}
+        <a href="{{ url_for('index') }}" title="Início"><i class="fas fa-home"></i></a>
+        <a href="{{ url_for('auth.login') }}">Entrar</a>
+        <a href="{{ url_for('auth.signup') }}">Cadastre-se</a>
       {% endif %}
-    {% endwith %}
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% if request.endpoint != 'auth.login' %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flash-messages">
+            {% for category, msg in messages %}
+              <li class="{{ category }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    {% endif %}
+
 
     {% block content %}{% endblock %}
-  </body>
+  </main>
+</body>
 </html>

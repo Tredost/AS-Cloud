@@ -8,7 +8,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Usuário', validators=[DataRequired(), Length(3, 80)])
     password = PasswordField('Senha', validators=[DataRequired(), Length(6, 128)])
     confirm = PasswordField('Confirme a senha',
-                            validators=[DataRequired(), EqualTo('password')])
+                            validators=[DataRequired(), EqualTo('password', message='As senhas não coincidem.')])
     submit = SubmitField('Registrar')
 
 class LoginForm(FlaskForm):
